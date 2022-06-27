@@ -2,10 +2,8 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import os
 
-current_path = os.getcwd()
-model_path = os.path.join(current_path, 'model.pkl')
+model_path = '//model.pkl'
 
 import pickle
 model = pickle.load(open(model_path,'rb'))
