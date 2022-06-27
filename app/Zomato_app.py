@@ -3,7 +3,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
-model_path = '//model.pkl'
+model_path = 'model.pkl'
 
 import pickle
 model = pickle.load(open(model_path,'rb'))
