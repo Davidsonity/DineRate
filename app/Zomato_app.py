@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 import pickle
-model = pickle.load(open('./model.pkl','rb'))
+model = pickle.load(open('app/model.pkl','rb'))
 
 import warnings
 warnings.filterwarnings('ignore')
