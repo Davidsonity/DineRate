@@ -2,10 +2,10 @@
 import streamlit as st
 import numpy as np
 
-model_path = 'Davidsonity/Zomato/model.pkl'
+model_path = 'model.pkl'
 
 import pickle
-model = pickle.load(open(model_path,'rb'))
+model_ = pickle.load(open(model_path,'rb'))
 
 import warnings
 warnings.filterwarnings('ignore')
