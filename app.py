@@ -5,7 +5,7 @@ import numpy as np
 model_path = 'model.pkl'
 
 import pickle
-model = pickle.load(open(model_path,'rb'))
+# model = pickle.load(open(model_path,'rb'))
 
 import warnings
 warnings.filterwarnings('ignore')
@@ -266,9 +266,10 @@ def main():
     ]])
 
     if st.button("Submit"):
-        result = model.predict(answers)
-        result_text = "The Restaurant's Rating is {} of 5.0.".format(round(result[0], 1))
-        st.success(result_text)
+#         result = model.predict(answers)
+#         result_text = "The Restaurant's Rating is {} of 5.0.".format(round(result[0], 1))
+#         st.success(result_text)
+          st.success("Git can't find model")
  
 if __name__=='__main__':
     main()
