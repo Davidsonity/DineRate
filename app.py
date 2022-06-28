@@ -5,7 +5,7 @@ import numpy as np
 model_path = 'model.pkl'
 
 import pickle
-model_1 = pickle.load(open(model_path,'rb'))
+model = pickle.load(open(model_path,'rb'))
 
 import warnings
 warnings.filterwarnings('ignore')
