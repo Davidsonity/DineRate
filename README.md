@@ -1,4 +1,4 @@
-# Zomato Restaurant Data Analysis and Rating Predictions🥣📊
+# Zomato Restaurant Data Analysis and Ratings Predictions🥣📊
 
 <p align="center">
   
