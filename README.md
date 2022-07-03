@@ -1,6 +1,8 @@
 # Zomato Restaurant Data Analysis and Rating Predictions🥣📊
 
 <p align="center">
+  
+  [![Made withJupyter](https://img.shields.io/badge/Made%20with-Jupyter-orange?style=for-the-badge&logo=Jupyter)](https://jupyter.org/)
 
   [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
   
@@ -17,7 +19,7 @@
 Collecting insight from Bangalore dataset and creating a machine learning model to predict the rating of restaurants.
 
 ## Sections🗂️
-### Notebook📚:
+### Notebook📚: 
 📓 Exploratory Data Analysis\
 📓 Visualization \
 📓 Model Building
