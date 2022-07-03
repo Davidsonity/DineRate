@@ -1,4 +1,4 @@
-# Zomato Restaurant Data Analysis and Rating Predictions
+# Zomato Restaurant Data Analysis and Rating Predictions🥣📊
 
 <p align="center">
 
@@ -13,10 +13,17 @@
 
 ![Zomato](https://www.gizmochina.com/wp-content/uploads/2022/03/Zomato.jpg)
 
-## Sections 📚
-### Notebook:
+## Context📋
+Collecting insight from Bangalore dataset and creating a machine learning model to predict the rating of restaurants.
+
+## Sections🗂️
+### Notebook📚:
 📓 Exploratory Data Analysis\
 📓 Visualization \
-📓 Model Building\
-### App:
+📓 Model Building
+### App📱:
 [![streamlit](https://docs.streamlit.io/logo.svg)](https://streamlit.io/) Streamlit  
+
+
+## Website🌍
+https://zomato101.herokuapp.com/
