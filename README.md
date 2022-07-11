@@ -26,4 +26,4 @@ Collecting insight from Bangalore dataset and creating a machine learning model 
 ### App📱:
 [![streamlit](https://docs.streamlit.io/logo.svg)](https://streamlit.io/) Streamlit  
 
-[![Website shields.io](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](https://zomato101.herokuapp.com/)
+[![Website shields.io](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](https://davidsonity-zomato-app-oz2y4c.streamlitapp.com/)
