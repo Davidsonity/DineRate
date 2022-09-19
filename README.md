@@ -41,3 +41,7 @@ Columns Description: The following are the description of each columns in the da
 - menu_item: menu items available in the restuarant
 - listed_in(type): type of the restaurant
 - listed_in(city): locality of the restaurant position
+
+
+### WEBSITE
+https://davidsonity-restaurants-rating-prediction-app-qsszth.streamlitapp.com/
