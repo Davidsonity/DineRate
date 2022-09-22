@@ -7,7 +7,7 @@
 
 ### INTRODUCTION
 #### Objectives
-The objective of this project is to build machine learning approach to predict the rating of a restaurant in Bangalore.
+The objective of this project is to build machine learning model to predict the rating of restaurants in Bangalore.
 
 #### About Dataset
 The data is accurate to that available on the zomato website until 15 March 2019.
