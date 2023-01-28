@@ -4,6 +4,7 @@
 
 
 > Deployment Site @ https://davidsonity-restaurants-rating-prediction-app-qsszth.streamlitapp.com/
+> View Notebook @ https://github.com/Davidsonity/Restaurants-Rating-Prediction/blob/main/notebook.ipynb
 
 ### INTRODUCTION
 #### Objectives
