@@ -1,49 +1,64 @@
-# Restaurant Ratings Prediction.
+# Restaurants Rating Prediction.
 
 ![image](https://user-images.githubusercontent.com/96771321/191105903-96e9a07f-2a31-402c-953b-e078e863da20.png)
 
-
-> Deployment Site @ https://davidsonity-restaurants-rating-prediction-app-qsszth.streamlitapp.com/
-> 
 > View Notebook @ https://github.com/Davidsonity/Restaurants-Rating-Prediction/blob/main/notebook.ipynb
 
-### INTRODUCTION
-#### Objectives
-The objective of this project is to build machine learning model to predict the rating of restaurants in Bangalore.
+## Table of Contents
+- [Introduction](#introduction)
+- [Dataset](#dataset)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Deployment](#deployment)
+- [Project Structure](#project-structure)
+- [Contributing](#contributing)
+- [License](#license)
 
-#### About Dataset
-The data is accurate to that available on the zomato website until 15 March 2019.
-The data was scraped from Zomato in two phase. After going through the structure of the website I found that for each neighborhood there are 6-7 category of restaurants viz. Buffet, Cafes, Delivery, Desserts, Dine-out, Drinks & nightlife, Pubs and bars.
+## Introduction
+The objective of this project is to provide an accurate rating prediction for restaurants in Bangalore. By leveraging machine learning techniques, the project aims to help users make informed decisions when choosing a restaurant. The predictive model takes into account multiple factors, including location, cuisine, restaurant type, average cost, and user reviews, to generate reliable rating predictions.
 
-Phase I,
+## Dataset
+The dataset used for training the model was sourced from Zomato. It provides comprehensive information about various restaurants in Bangalore, including their names, addresses, ratings, cuisines, average cost, user reviews, and more. The dataset was collected up until 15 March 2019. You can access the dataset on [Kaggle](https://www.kaggle.com/datasets/himanshupoddar/zomato-bangalore-restaurants).
 
-In Phase I of extraction only the URL, name and address of the restaurant were extracted which were visible on the front page. The URl's for each of the restaurants on the zomato were recorded in the csv file so that later the data can be extracted individually for each restaurant. This made the extraction process easier and reduced the extra load on my machine. The data for each neighborhood and each category can be found here
+## Installation
+To run this project locally, follow these steps:
 
-Phase II,
+1. Clone the repository: `git clone https://github.com/Davidsonity/Restaurants-Rating-Prediction.git`
+2. Navigate to the project directory: `cd Restaurants-Rating-Prediction`
+3. Install the required dependencies: `pip install -r requirements.txt`
 
-In Phase II the recorded data for each restaurant and each category was read and data for each restaurant was scraped individually. 15 variables were scraped in this phase. For each of the neighborhood and for each category their onlineorder, booktable, rate, votes, phone, location, resttype, dishliked, cuisines, approxcost(for two people), reviewslist, menu_item was extracted.
+## Usage
+To use the Restaurants Rating Prediction application, follow these steps:
 
-Data Source: https://www.kaggle.com/datasets/himanshupoddar/zomato-bangalore-restaurants
+1. Ensure you have installed the required dependencies (see Installation section).
+2. Run the application: `streamlit run app.py`
+3. Access the application through your web browser at `http://localhost:8501`.
+4. Provide the necessary restaurant details, such as location, cuisine, restaurant type, and average cost.
+5. Optionally, you can input user reviews to further improve the prediction accuracy.
+6. Click the "Predict" button to obtain the predicted rating for the restaurant.
 
-Columns Description: The following are the description of each columns in the dataset:
-- url: zomato url for the restaurants
-- address: complete location of the restaurant
-- name: name of the restaurant
-- online_order: whether restaurant accepts online order
-- book_table: whether restaurant provides option for booking table
-- rate: restaurants rating on zomato website
-- votes: number of individual who voted for restaurants
-- phone: contact details of the restaurant
-- localtion: area where restaurant is situated
-- rest_type: Type of restaurants (Categorical value)
-- dish_liked: what are all dishes of the restaurant that people liked
-- cuisines: cuisines offered by the restaurant
-- approx_cost(for two people): average cost for two people
-- review_list: reviews of the restaurant on zomato website
-- menu_item: menu items available in the restuarant
-- listed_in(type): type of the restaurant
-- listed_in(city): locality of the restaurant position
+## Deployment
+The project is deployed and can be accessed online at [Restaurants Rating Prediction App](https://davidsonity-restaurants-rating-prediction-app-qsszth.streamlitapp.com/). The deployment allows users to access the application remotely without the need for local installation. It provides a user-friendly interface for predicting restaurant ratings.
 
+## Project Structure
+The project directory contains the following files and directories:
 
-### WEBSITE
-https://davidsonity-restaurants-rating-prediction-app-qsszth.streamlitapp.com/
+- `.idea`: Directory for IDE-specific configurations (e.g., PyCharm).
+- `LICENSE`: The license file for the project.
+- `Procfile`: A file used for specifying the application process type for deployment.
+- `README.md`: This file, providing information about the project.
+- `app.py`: The main application file that runs the Restaurants Rating Prediction app.
+- `cuisines.json`: JSON file containing cuisine data used by the application.
+- `location.json`: JSON file containing location data used by the application.
+- `model.pkl`: Serialized machine learning model for rating prediction.
+- `notebook.ipynb`: Jupyter Notebook containing the project's data exploration and model development.
+- `requirements.txt`: Text file listing the required Python libraries and their versions.
+- `rest_type.json`: JSON file containing restaurant type data used by the application.
+- `setup.sh`: Shell script for environment setup.
+
+## Contributing
+Contributions to this project are welcome. If you have any suggestions, bug reports, or feature requests, please open an issue on the GitHub repository. Your input will be highly appreciated in improving the functionality and accuracy of the rating prediction model.
+
+## License
+This project is licensed under the MIT License. You are free to use, modify, and distribute the code in accordance with the terms and conditions of the license.
+
