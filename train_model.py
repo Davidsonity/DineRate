@@ -52,8 +52,8 @@ def preprocess_data(data, unwanted_columns, location_encoder, RestType_encoder, 
     data.rename(columns={'approx_cost(for two people)': 'cost_for_2'}, inplace=True)
     
     # Convert columns 'rate' and 'cost_for_2' to float datatype
-    data['rate'] = df['rate'].apply(lambda x: x.replace('/5', '') if isinstance(x, str) and '/5' in x else x).astype(float)
-    data['cost_for_2'] = df['cost_for_2'].apply(lambda x: x.replace(',', '') if isinstance(x, str) and ',' in x else x).astype(float)
+    data['rate'] = data['rate'].apply(lambda x: x.replace('/5', '') if isinstance(x, str) and '/5' in x else x).astype(float)
+    data['cost_for_2'] = data['cost_for_2'].apply(lambda x: x.replace(',', '') if isinstance(x, str) and ',' in x else x).astype(float)
     
     # Convert the online_order categorical variable into numeric format
     data['online_order'] = data['online_order'].map({'Yes': 1, 'No': 0})

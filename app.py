@@ -50,13 +50,15 @@ cuisines = st.selectbox("Select cuisines", cuisines_encoder.classes_)
 cost_for_2 = st.select_slider("Select price range for 2 customers",
                               options= np.linspace(40.0, 6000.0, 100))
 
-answers = np.array([[
-    dic_online_order[order_online], dic_book_table[book_table], votes,
-    location_encoder.transform(location), RestType_encoder.transform(rest_type), cuisines_encoder.transform(cuisines),
-    cost_for_2
-]])
-
 if st.button("Submit"):
+    answers = np.array([[dic_online_order[order_online],
+           dic_book_table[book_table], 
+           votes, 
+           location_encoder.transform([location])[0],
+           RestType_encoder.transform([rest_type])[0],
+           cuisines_encoder.transform([cuisines])[0],
+           cost_for_2]])
+    st.write(answers)
     result = model.predict(answers)
     result_text = "The Restaurant's Rating is {} of 5.0.".format(round(result[0], 1))
     st.success(result_text)
