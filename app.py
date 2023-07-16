@@ -4,17 +4,12 @@ import numpy as np
 import json
 import pickle
 import warnings
+import pandas as pd
 warnings.filterwarnings('ignore')
 
-
-model_path = 'model.pkl'
-
-with open(model_path, 'rb') as file:
-    model = pickle.load(file)
-
-dic_online_order = {'Yes': 1, 'No': 0}
-
-dic_book_table = {'Yes': 1, 'No': 0}
+# Test the model
+# Load the saved model
+pipeline = pickle.load(open('model.pkl', 'rb'))
 
 # Load the label encoder
 with open('location_encoder.pickle', 'rb') as l_handle:
@@ -41,8 +36,8 @@ st.image(
 
 st.markdown("Check the rating of restaurants in Bangalore!!!")
 
-order_online = st.selectbox("Do the restaurant offer online services?", dic_online_order.keys())
-book_table = st.selectbox("Table Booking/Reservation Available?", dic_book_table.keys())
+order_online = st.selectbox("Do the restaurant offer online services?", ['Yes', 'No'])
+book_table = st.selectbox("Table Booking/Reservation Available?", ['Yes', 'No'])
 votes = st.slider("Number of votes", 0, 20000)
 location = st.selectbox("Restaurant Location:", location_encoder.classes_)
 rest_type = st.selectbox("Type of Restaurant", RestType_encoder.classes_)
@@ -50,15 +45,34 @@ cuisines = st.selectbox("Select cuisines", cuisines_encoder.classes_)
 cost_for_2 = st.select_slider("Select price range for 2 customers",
                               options= np.linspace(40.0, 6000.0, 100))
 
+
+
 if st.button("Submit"):
-    answers = np.array([[dic_online_order[order_online],
-           dic_book_table[book_table], 
-           votes, 
-           location_encoder.transform([location])[0],
-           RestType_encoder.transform([rest_type])[0],
-           cuisines_encoder.transform([cuisines])[0],
-           cost_for_2]])
-    st.write(answers)
-    result = model.predict(answers)
-    result_text = "The Restaurant's Rating is {} of 5.0.".format(round(result[0], 1))
-    st.success(result_text)
+    # Define the user inputs
+    order_online = str(order_online)
+    book_table = str(book_table)
+    votes = int(votes)
+    location = str(location)
+    rest_type = str(rest_type)
+    cuisines = str(cuisines)
+    cost_for_2 = float(cost_for_2)
+
+    # Create a dictionary with the user inputs
+    data = {
+        'online_order': [order_online],
+        'book_table': [book_table],
+        'votes': [votes],
+        'location': [location],
+        'rest_type': [rest_type],
+        'cuisines': [cuisines],
+        'cost_for_2': [cost_for_2]
+    }
+
+    # Create a DataFrame from the dictionary
+    answers = pd.DataFrame(data)
+
+    # Predict on the new data
+    predictions = pipeline.predict(answers)
+    
+    predictions_text = "The Restaurant's Rating is {} of 5.0.".format(round(predictions[0], 1))
+    st.success(predictions_text)
