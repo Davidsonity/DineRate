@@ -1,78 +1,99 @@
-import argparse
-import logging
-from sklearn.preprocessing import LabelEncoder
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import r2_score
-from sklearn.ensemble import ExtraTreesRegressor
+# Import necessary libraries
 import pandas as pd
 import numpy as np
+from sklearn.pipeline import Pipeline
+from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import OrdinalEncoder, StandardScaler
+from sklearn.ensemble import ExtraTreesRegressor
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+import logging
 import pickle
 
+# Load the CSV file into a pandas DataFrame
+data = pd.read_csv('zomato_clean.csv')
+
+# Split the data into training and testing sets with stratified sampling
+train_data, test_data = train_test_split(data, test_size=0.01, random_state=42)
+
+# Save the training and testing sets to separate CSV files
+train_data.to_csv('train_data.csv', index=False)
+test_data.to_csv('test_data.csv', index=False)
+
+
 # Set unwanted columns
-unwanted_columns = ['name', 'url', 'address', 'phone', 'dish_liked', 'reviews_list', 'menu_item', 'listed_in(city)', 'listed_in(type)' ]
+unwanted_columns = ['name', 'type', 'dish_liked']
 
-def read_data(file_path):
-    """
-    Read data from a CSV file.
+# Write functions for preprocess data, create pipline and train model
 
-    Parameters:
-    - file_path (str): Path to the CSV file.
+# Add logging statement
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-    Returns:
-    - pandas.DataFrame: The loaded data.
-    """
-    data = pd.read_csv(file_path)
-    return data
-
-def preprocess_data(data, unwanted_columns, location_encoder, RestType_encoder, cuisines_encoder):
+def preprocess_data(data, unwanted_columns):
     """
     Preprocess the data.
 
     Parameters:
     - data (pandas.DataFrame): The data to be preprocessed.
     - unwanted_columns (list): List of unwanted columns to drop.
-    - location_encoder (LabelEncoder): The pre-trained label encoder for 'location'.
-    - RestType_encoder (LabelEncoder): The pre-trained label encoder for 'rest_type'.
-    - cuisines_encoder (LabelEncoder): The pre-trained label encoder for 'cuisines'.
 
     Returns:
     - pandas.DataFrame: The preprocessed data.
     """
     # Drop unwanted columns
     data.drop(unwanted_columns, axis=1, inplace=True)
-    
-    # Replace 'NEW' and '-' in column 'rate' with 'NaN'
-    data['rate'].replace(['NEW', '-'], np.nan, inplace=True)
-    
+
     # Drop null values
     data.dropna(inplace=True)
     data.reset_index(drop=True, inplace=True)
-    
-    # Rename columns
-    data.rename(columns={'approx_cost(for two people)': 'cost_for_2'}, inplace=True)
-    
-    # Convert columns 'rate' and 'cost_for_2' to float datatype
-    data['rate'] = data['rate'].apply(lambda x: x.replace('/5', '') if isinstance(x, str) and '/5' in x else x).astype(float)
-    data['cost_for_2'] = data['cost_for_2'].apply(lambda x: x.replace(',', '') if isinstance(x, str) and ',' in x else x).astype(float)
-    
-    # Convert the online_order categorical variable into numeric format
-    data['online_order'] = data['online_order'].map({'Yes': 1, 'No': 0})
-    data['online_order'] = pd.to_numeric(data['online_order'])
-    
-    # Convert the book_table categorical variable into numeric format
-    data['book_table'] = data['book_table'].map({'Yes': 1, 'No': 0})
-    data['book_table'] = pd.to_numeric(data['book_table'])
-    
-    # Label encode the categorical variables
-    data['location'] = location_encoder.transform(data['location'])
-    data['rest_type'] = RestType_encoder.transform(data['rest_type'])
-    data['cuisines'] = cuisines_encoder.transform(data['cuisines'])
-    
+
     return data
 
-def train_extra_trees_regressor(X, Y, test_size, random_state, n_estimators):
+def create_pipeline():
     """
-    Train an Extra Trees Regressor.
+    Create the pipeline for training an Extra Trees Regressor.
+
+    Returns:
+    - sklearn.pipeline.Pipeline: The pipeline for training the model.
+    """
+    # Define the columns for different transformations
+    numeric_columns = ['votes']
+    binary_columns = ['online_order', 'book_table']
+    categorical_columns = ['location', 'rest_type', 'cuisines']
+
+    # Create pipeline for preprocessing numeric features
+    numeric_transformer = Pipeline([
+        ('scaler', StandardScaler())
+    ])
+
+    # Create pipeline for preprocessing binary features
+    binary_transformer = Pipeline([
+        ('encoder', OrdinalEncoder())
+    ])
+
+    # Create pipeline for preprocessing categorical features
+    categorical_transformer = Pipeline([
+        ('encoder', OrdinalEncoder())
+    ])
+
+    # Combine the transformers using ColumnTransformer
+    preprocessor = ColumnTransformer([
+        ('numeric_preprocess', numeric_transformer, numeric_columns),
+        ('binary_preprocess', binary_transformer, binary_columns),
+        ('categorical_preprocess', categorical_transformer, categorical_columns)
+    ])
+
+    # Create the final pipeline with preprocessor and Extra Trees Regressor
+    pipeline = Pipeline([
+        ('preprocess', preprocessor),
+        ('regressor', ExtraTreesRegressor(n_estimators=120))
+    ])
+
+    return pipeline
+
+def train_model(X, Y):
+    """
+    Train the Extra Trees Regressor model.
 
     Parameters:
     - X (pandas.DataFrame): The input features.
@@ -81,90 +102,37 @@ def train_extra_trees_regressor(X, Y, test_size, random_state, n_estimators):
     - random_state (int): Random seed for reproducibility.
 
     Returns:
-    - ExtraTreesRegressor: The trained Extra Trees Regressor model.
+    - sklearn.pipeline.Pipeline: The trained model.
     """
-    x_train, x_test, y_train, y_test = train_test_split(X, Y, test_size=test_size, random_state=random_state)
-    
-    ET_model = ExtraTreesRegressor(n_estimators=n_estimators)
-    ET_model.fit(x_train, y_train)
-    
-    y_predict = ET_model.predict(x_test)
-    ext_score = round(r2_score(y_test, y_predict), 4)
-    
-    return ET_model, ext_score
+    # Create the pipeline
+    pipeline = create_pipeline()
 
-def save_model(model, file_path):
-    """
-    Save a trained model to a file.
+    # Fit the pipeline to the training data
+    pipeline.fit(X, Y)
 
-    Parameters:
-    - model: The trained model object.
-    - file_path (str): Path to save the model file.
-    """
-    pickle.dump(model, open(file_path, 'wb'))
+    return pipeline
 
-def main():
-    # Create argument parser
-    parser = argparse.ArgumentParser(description='Zomato Restaurants Ratings Model Training')
-    parser.add_argument('--data', type=str, default='zomato.csv', help='Path to the CSV data file')
-    parser.add_argument('--location_encoder', type=str, default='location_encoder.pickle', help='Path to the location encoder pickle file')
-    parser.add_argument('--RestType_encoder', type=str, default='RestType_encoder.pickle', help='Path to the RestType encoder pickle file')
-    parser.add_argument('--cuisines_encoder', type=str, default='cuisines_encoder.pickle', help='Path to the cuisines encoder pickle file')
-    parser.add_argument('--model', type=str, default='model.pkl', help='Path to save the trained model file')
-    parser.add_argument('--test_size', type=float, default=0.3, help='Proportion of data for testing')
-    parser.add_argument('--random_state', type=int, default=123, help='Random seed')
-    parser.add_argument('--n_estimators', type=int, default=120, help='--model_n_estimators')
-    parser.add_argument("-v", "--verbose", help="increase output verbosity", action="store_true")
-    
-    args = parser.parse_args()
-    if args.verbose:
-        logging.basicConfig(level=logging.INFO)
-    
-    # Parse arguments
-    args = parser.parse_args()
 
-    # Configure logging
-    if args.verbose:
-        logging.basicConfig(filename='model_training.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+# Create and train the model
 
-    # Load the label encoders
-    try:
-        with open(args.location_encoder, 'rb') as l_handle:
-            location_encoder = pickle.load(l_handle)
+# Add logging statement
+logging.info("Loading and preprocessing data...")
 
-        with open(args.RestType_encoder, 'rb') as l_handle:
-            RestType_encoder = pickle.load(l_handle)
+# Load the data
+data = pd.read_csv('train_data.csv')
 
-        with open(args.cuisines_encoder, 'rb') as l_handle:
-            cuisines_encoder = pickle.load(l_handle)
+# Splitting data
+X = data.drop(['rate'], axis=1)
+Y = data['rate']
 
-        logging.info('Label encoders loaded successfully.')
+# Preprocess the data
+preprocessed_data = preprocess_data(data, unwanted_columns)
 
-        # Read the data
-        data = read_data(args.data)
-        
-        # Preprocess the data
-        preprocessed_data = preprocess_data(data, unwanted_columns, location_encoder, RestType_encoder, cuisines_encoder)
+# Train the model
+model = train_model(X, Y)
 
-        # Splitting data
-        X = preprocessed_data.drop(['rate'], axis=1)
-        Y = preprocessed_data['rate']
+# Save the trained model
+pickle.dump(model, open('model.pkl', 'wb'))
 
-        # Train the Extra Trees Regressor
-        ET_model, ext_score = train_extra_trees_regressor(X, Y, test_size=args.test_size, random_state=args.random_state, n_estimators=args.n_estimators)
-
-        # Save the model
-        save_model(ET_model, args.model)
-
-        # Save the model score and parameters to a text file
-        score = 'r2 score: {}'.format(ext_score)
-        parameters = f"n_estimators: {args.n_estimators}, test_size: {args.test_size}, random_state: {args.random_state}"
-        with open('model_score_parameters.txt', 'w') as f:
-            f.write(f"Model Score:\n{score}\n\nParameters:\n{parameters}")
-
-        logging.info('Model training completed successfully.')
-    except Exception as e:
-        logging.error(f'Error occurred: {str(e)}', exc_info=True)
-
-if __name__ == '__main__':
-    main()
+# Add logging statement
+logging.info("Model trained and saved.")

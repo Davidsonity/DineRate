@@ -1,5 +1,0 @@
-Model Score:
-r2 score: 0.9355
-
-Parameters:
-n_estimators: 120, test_size: 0.3, random_state: 123

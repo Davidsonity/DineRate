@@ -34,21 +34,19 @@ The predictive model's performance is evaluated using the following metrics:
 
 The project directory contains the following files:
 
-- `LICENSE`: The license file specifying the project's open-source license.
+- `.idea`: Directory containing project-specific settings for JetBrains IDEs.
+- `LICENSE`: The license file specifying the project's open-source license (MIT License).
 - `Procfile`: A file specifying the necessary commands to run the application on the deployment platform.
 - `README.md`: The README file providing an overview of the project and instructions for setup and usage.
-- `RestType_encoder.pickle`: Pickled object that encodes or transforms the "Restaurant Type" feature.
-- `app.py`: The main Python script for running the application or script that utilizes the machine learning model.
-- `cuisines_encoder.pickle`: Pickled object that encodes or transforms the "Cuisines" feature.
-- `location_encoder.pickle`: Pickled object that encodes or transforms the "Location" feature.
+- `app.py`: The main Python script for running the web application.
+- `cuisines.json`: JSON file containing a list of cuisines.
+- `location.json`: JSON file containing a list of locations.
 - `model.pkl`: The trained machine learning model saved in a pickle file.
-- `model_score_parameters.txt`: Text file containing the parameters or metrics related to the model's performance.
 - `notebook.ipynb`: Jupyter Notebook containing the data preprocessing, model training, and evaluation steps.
 - `requirements.txt`: Text file specifying the required Python packages and their versions.
+- `rest_type.json`: JSON file containing a list of restaurant types.
 - `setup.sh`: Shell script for setting up the required environment.
-- `train_model.py`: Python script used for training the machine learning model.
 
-This list should reflect the files present in your project directory based on the information you provided.
 ## Usage
 
 To run the project locally, follow these steps:
