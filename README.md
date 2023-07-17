@@ -41,6 +41,7 @@ The project directory contains the following files:
 - `app.py`: This file contains the code for your application or API. It defines routes, handles requests, and may perform tasks such as loading the model and making predictions.
 - `model.pkl`: This file is a pickled version of your trained machine learning model. It is a serialized form of your TensorFlow or scikit-learn model that can be loaded and used for inference.
 - `notebook.ipynb`: This Jupyter Notebook file contains code, documentation, and visualizations related to your project. It is typically used for exploratory data analysis (EDA), data preprocessing, or model development.
+- `final_model.ipynb`: This Jupyter Notebook file contains code, documentation, and visualizations related to your final model development. It likely includes the refined model architecture, hyperparameter tuning, and model evaluation on test data.
 - `requirements.txt`: This file lists the required Python packages and their specific versions needed to run your project. It ensures that the correct dependencies are installed.
 - `setup.sh`: This shell script is used for setting up your project environment. It may include commands to install dependencies, configure environment variables, or perform other setup tasks.
 - `train_model.py`: This file contains the code for training your machine learning model. It includes data loading, preprocessing, model creation, training, and model evaluation.
