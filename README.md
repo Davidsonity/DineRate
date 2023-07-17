@@ -34,18 +34,16 @@ The predictive model's performance is evaluated using the following metrics:
 
 The project directory contains the following files:
 
-- `.idea`: Directory containing project-specific settings for JetBrains IDEs.
-- `LICENSE`: The license file specifying the project's open-source license (MIT License).
-- `Procfile`: A file specifying the necessary commands to run the application on the deployment platform.
-- `README.md`: The README file providing an overview of the project and instructions for setup and usage.
-- `app.py`: The main Python script for running the web application.
-- `cuisines.json`: JSON file containing a list of cuisines.
-- `location.json`: JSON file containing a list of locations.
-- `model.pkl`: The trained machine learning model saved in a pickle file.
-- `notebook.ipynb`: Jupyter Notebook containing the data preprocessing, model training, and evaluation steps.
-- `requirements.txt`: Text file specifying the required Python packages and their versions.
-- `rest_type.json`: JSON file containing a list of restaurant types.
-- `setup.sh`: Shell script for setting up the required environment.
+- `LICENSE`: This file contains the license information for your project, specifying how others can use and distribute your code.
+- `Procfile`: This file declares the commands to start and run your application, typically used in deploying applications to platforms like Heroku.
+- `README.md`: This file provides a description, instructions, and other relevant information about your project. It is often written in Markdown format.
+- `RestType_encoder.pickle`, `cuisines_encoder.pickle`, `location_encoder.pickle`: These pickle files contain pre-trained encoders or label encodings for specific features in your machine learning model. They are used to encode categorical variables.
+- `app.py`: This file contains the code for your application or API. It defines routes, handles requests, and may perform tasks such as loading the model and making predictions.
+- `model.pkl`: This file is a pickled version of your trained machine learning model. It is a serialized form of your TensorFlow or scikit-learn model that can be loaded and used for inference.
+- `notebook.ipynb`: This Jupyter Notebook file contains code, documentation, and visualizations related to your project. It is typically used for exploratory data analysis (EDA), data preprocessing, or model development.
+- `requirements.txt`: This file lists the required Python packages and their specific versions needed to run your project. It ensures that the correct dependencies are installed.
+- `setup.sh`: This shell script is used for setting up your project environment. It may include commands to install dependencies, configure environment variables, or perform other setup tasks.
+- `train_model.py`: This file contains the code for training your machine learning model. It includes data loading, preprocessing, model creation, training, and model evaluation.
 
 ## Usage
 
