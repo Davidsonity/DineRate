@@ -28,7 +28,7 @@ with open('cuisines_encoder.pickle', 'rb') as l_handle:
 #streamlit
 ##################################################################          
 
-st.title("Zomato Restaurants Ratings")
+st.title("DineRate")
 
 st.image(
             "https://b.zmtcdn.com/data/pictures/7/19774377/7e38bb6b50847a67b2916293e74a8918_featured_v2.jpg" # Manually Adjust the width of the image as per requirement
