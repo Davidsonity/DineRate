@@ -1,4 +1,5 @@
-# Restaurants Rating Prediction
+# DineRate
+> Restaurants Rating Prediction
 
 ![image](https://user-images.githubusercontent.com/96771321/191105903-96e9a07f-2a31-402c-953b-e078e863da20.png)
 
