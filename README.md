@@ -3,7 +3,7 @@
 
 ![image](https://user-images.githubusercontent.com/96771321/191105903-96e9a07f-2a31-402c-953b-e078e863da20.png)
 
-> View Notebook @ https://github.com/Davidsonity/Restaurants-Rating-Prediction/blob/main/notebook.ipynb
+> View Notebook @ https://github.com/Davidsonity/DineRate/blob/main/notebook.ipynb
 
 This project is a machine learning application that predicts the ratings of restaurants in Bangalore. It utilizes a dataset obtained from Zomato and employs various features such as location, cuisine, restaurant type, average cost, and user reviews to train a predictive model.
 
