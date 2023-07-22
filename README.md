@@ -23,7 +23,7 @@ The dataset provides a rich set of information about restaurants, allowing the m
 
 ## Deployment Site
 
-The project is deployed and can be accessed through the following deployment site: [Restaurants Rating Prediction App](https://davidsonity-restaurants-rating-prediction-app-qsszth.streamlitapp.com/)
+The project is deployed and can be accessed through the following deployment site: [DineRate App](https://dinerate.streamlit.app/)
 
 ## Evaluation Metrics
 
